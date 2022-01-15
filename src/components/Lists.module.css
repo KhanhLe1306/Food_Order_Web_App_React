@@ -1,0 +1,11 @@
+.lists{
+    position: relative;
+    top: 22%;
+    background-color: lightsalmon;
+    /* display: flex;
+    flex-direction: column;
+    gap: .5rem; */
+    padding: 1.5rem;
+    border-radius: 1rem;
+    gap: .5rem;
+}

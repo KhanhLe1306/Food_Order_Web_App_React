@@ -1,0 +1,18 @@
+.center__message{
+    width: 600px;
+    margin: 0 auto;
+    top: 20%;
+    position: relative;
+    z-index: 100;
+    background-color: rgba(204, 124, 115,.7 );
+    padding: 1rem 2rem;
+    border-radius: 1rem;
+}
+
+.message__description{
+    text-align: center;
+}
+
+.message__title{
+    text-align: center;
+}

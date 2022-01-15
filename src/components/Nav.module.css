@@ -1,0 +1,32 @@
+nav{
+    height: 70px;
+    background-color: salmon;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.nav{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1.25rem;
+    font-weight: 400;
+}
+
+.cart{
+    border-radius: .5rem;
+    background-color: rgb(51, 17, 78);
+    padding: .5rem 3rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.cart__quantity{
+    height: 35px;
+    width: 35px;
+    border-radius: 50%;
+    background-color: salmon;
+    text-align: center;
+}
