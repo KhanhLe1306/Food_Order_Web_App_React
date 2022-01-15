@@ -1,13 +1,23 @@
+import { useState } from 'react'
 import classes from './List.module.css'
 
 const List = (props) => {
+    const [pickAmount, setPickedAmount] = useState(0)
 
     const { onAddItem, price, title, subtitle, id } = props
 
     const submitHandler = (event) => {
         event.preventDefault()
-        console.log(event)
         //call the addItem function here
+        console.log(id, title, pickAmount, price);
+        onAddItem(id, title, price, pickAmount)
+    }
+
+    const changeHandler = (event) => {
+        
+        //console.log(event.target.id)
+        //console.log(event.target.lastChild.index)
+        setPickedAmount(event.target.value);
     }
 
     return (
@@ -20,7 +30,7 @@ const List = (props) => {
             <div className={classes.list__right_section}>
                 <div>
                     <label className={classes.quantity__amount_label}>Amount</label>
-                    <select className={classes.quantity__select} id={id} name={title}>
+                    <select className={classes.quantity__select} onChange={changeHandler} id={id} name={title}>
                         <option value='0'>0</option>
                         <option value='1'>1</option>
                         <option value='2'>2</option>
@@ -36,3 +46,6 @@ const List = (props) => {
 
 
 export default List
+
+//event.target.id
+//event.target.lastChild.index
