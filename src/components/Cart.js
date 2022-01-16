@@ -1,48 +1,66 @@
 import classes from "./Cart.module.css";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 
 const Cart = (props) => {
-	// const [total, setTotal] = useState(0);
+    const [total, setTotal] = useState(0);
+    const currentItemRef = useRef()
 
-	// const updateTotal = () => {
-	// 	props.cart.forEach((list) => {
-	// 		setTotal((prevTotal) => {
-	// 			return prevTotal + list.price * list.amount;
-	// 		});
-	// 	});
-	// };
+    const updateTotal = () => {
+        props.cart.forEach((list) => {
+            setTotal((prevTotal) => {
+                return Math.round((prevTotal + list.price * list.amount) * 100) / 100
+            });
+        });
+    };
 
-	// useEffect(() => {
-	// 	updateTotal();
-	// }, []);
+    useEffect(() => {
+        updateTotal();
+    }, []);
 
-	return (
+    useEffect(() => {
+        setTotal(0)
+        updateTotal();
+    }, [props.cart]);
+
+
+    const decrementClickHandler = (event) => {
+        const id_of_clickedItem = event.target.attributes.id.value
+        props.decrementClickHandler(id_of_clickedItem)
+    }
+
+    const incrementClickHandler = (event) => {
+        const id_of_clickedItem = event.target.attributes.id.value
+        props.incrementClickHandler(id_of_clickedItem)
+    }
+
+
+    return (
         <div className={classes.cart__container}>
-			{props.cart.map((item) => (
-				<div key={item.id} className={classes.cart}>
-					<div className={classes.cart__left}>
-						<span className={classes.cart__title}>{item.title}</span>
-						<div className={classes.price_quantity_container}>
-							<span className={classes.cart__price}>${item.price}</span>
-							<span className={classes.cart__quantity}>x{item.amount}</span>
-						</div>
-					</div>
-					<div className={classes.cart__right}>
-						<span className={"decrement " + classes.button}>-</span>
-						<span className={"increment " + classes.button}>+</span>
-					</div>
-				</div>
-			))}
-			<div className={classes.cart__summary}>
-				<span className={classes.cart__total_label}>Total Amount</span>
-				<span className={classes.cart__total}>0</span>
-			</div>
-			<div className={classes.cart__bottom}>
-				<span className={classes.button}>Close</span>
-				<span className={classes.button}>Order</span>
-			</div>
-		</div>
-	);
+            {props.cart.map((item) => (
+                <div ref={currentItemRef} key={item.id} className={classes.cart}>
+                    <div className={classes.cart__left}>
+                        <span className={classes.cart__title}>{item.title}</span>
+                        <div className={classes.price_quantity_container}>
+                            <span className={classes.cart__price}>${item.price}</span>
+                            <span className={classes.cart__quantity}>x{item.amount}</span>
+                        </div>
+                    </div>
+                    <div className={classes.cart__right}>
+                        <span id={item.id} onClick={decrementClickHandler} className={"decrement " + classes.button}>-</span>
+                        <span id={item.id} onClick={incrementClickHandler} className={"increment " + classes.button}>+</span>
+                    </div>
+                </div>
+            ))}
+            <div className={classes.cart__summary}>
+                <span className={classes.cart__total_label}>Total Amount</span>
+                <span className={classes.cart__total}>{total}</span>
+            </div>
+            <div className={classes.cart__bottom}>
+                <span className={classes.button}>Close</span>
+                <span className={classes.button}>Order</span>
+            </div>
+        </div>
+    );
 };
 
 export default Cart;
