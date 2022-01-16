@@ -1,9 +1,8 @@
 import classes from "./Cart.module.css";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 
 const Cart = (props) => {
     const [total, setTotal] = useState(0);
-    const currentItemRef = useRef()
 
     const updateTotal = () => {
         props.cart.forEach((list) => {
@@ -25,19 +24,19 @@ const Cart = (props) => {
 
     const decrementClickHandler = (event) => {
         const id_of_clickedItem = event.target.attributes.id.value
-        props.decrementClickHandler(id_of_clickedItem)
+        props.decrementClickHandler(+id_of_clickedItem)
     }
 
     const incrementClickHandler = (event) => {
         const id_of_clickedItem = event.target.attributes.id.value
-        props.incrementClickHandler(id_of_clickedItem)
+        props.incrementClickHandler(+id_of_clickedItem)
     }
 
 
     return (
         <div className={classes.cart__container}>
             {props.cart.map((item) => (
-                <div ref={currentItemRef} key={item.id} className={classes.cart}>
+                <div key={item.id} className={classes.cart}>
                     <div className={classes.cart__left}>
                         <span className={classes.cart__title}>{item.title}</span>
                         <div className={classes.price_quantity_container}>
