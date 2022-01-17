@@ -37,6 +37,34 @@ const lists = [
 		price: 22.99,
 		amount: 2,
 	},
+	{
+		id: 5,
+		title: "Pho",
+		subtitle: "Beef, rice noddle, and veggies",
+		price: 11.99,
+		amount: 2,
+	},
+	{
+		id: 6,
+		title: "Taco",
+		subtitle: "Asada, Carnitas, Fish combo tacos",
+		price: 16.99,
+		amount: 1,
+	},
+	{
+		id: 7,
+		title: "Avocado Toast",
+		subtitle: "Organic Avocado, whole wheet breads, 3 organic eggs",
+		price: 13.99,
+		amount: 1,
+	},
+	{
+		id: 8,
+		title: "Organic Protein Shake",
+		subtitle: "Grass-fed protein powder, greek yogut, milk, berries, avocado, oakmeal",
+		price: 7.99,
+		amount: 5,
+	},
 ];
 
 // const cart = [
@@ -56,6 +84,7 @@ const lists = [
 
 function App() {
 	const [cartItems, setCartItems] = useState([]);
+	const [showCart, setShowCart] = useState(false);
 
 	const addItem = (id, title, price, amount) => {
 		const newCart = [...cartItems];
@@ -108,22 +137,36 @@ function App() {
 		setCartItems(newCart);
 	};
 
+	const toggleCart = () => {
+		setShowCart(!showCart)
+	}
+
+	const ordering = () => {
+		console.log('Ordering...')
+	}
+
+	const backDropClickHandler = () => {
+		setShowCart(false)
+	}
+
 	return (
 		<div className={classes.App}>
 			<div className={classes.cover__image}>
 				<img src={image} alt=""></img>
 			</div>
-			<Nav totalQty={cartItems.length}/>
+			<Nav totalQty={cartItems.length} onToggleCart={toggleCart} />
 			<CenterMessage />
-			<Lists
-				onAddItem={addItem}
-				lists={lists}
-			/>
-			<Cart
-				cart={cartItems}
-				incrementClickHandler={incrementClickHandler}
-				decrementClickHandler={decrementClickHandler}
-			/>
+			<Lists onAddItem={addItem} lists={lists} />
+			{showCart && (
+				<Cart
+					onClose={backDropClickHandler}
+					cart={cartItems}
+					onToggleCart={toggleCart}
+					onOrderClick={ordering}
+					incrementClickHandler={incrementClickHandler}
+					decrementClickHandler={decrementClickHandler}
+				/>
+			)}
 		</div>
 	);
 }

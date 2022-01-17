@@ -1,5 +1,6 @@
 import classes from "./Cart.module.css";
 import { useState, useEffect } from "react";
+import Modal from "./UI/Modal";
 
 const Cart = (props) => {
     const [total, setTotal] = useState(0);
@@ -34,7 +35,7 @@ const Cart = (props) => {
 
 
     return (
-        <div className={classes.cart__container}>
+        <Modal onClose={props.onClose} className={classes.cart__container}>
             {props.cart.map((item) => (
                 <div key={item.id} className={classes.cart}>
                     <div className={classes.cart__left}>
@@ -55,10 +56,10 @@ const Cart = (props) => {
                 <span className={classes.cart__total}>{total}</span>
             </div>
             <div className={classes.cart__bottom}>
-                <span className={classes.button}>Close</span>
-                <span className={classes.button}>Order</span>
+                <span className={classes.button} onClick={props.onToggleCart}>Close</span>
+                <span className={classes.button} onClick={props.onOrderClick}>Order</span>
             </div>
-        </div>
+        </Modal>
     );
 };
 
