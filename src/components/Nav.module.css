@@ -21,6 +21,11 @@ nav{
     display: flex;
     align-items: center;
     gap: 1rem;
+    cursor: pointer;
+}
+
+.cart:hover{
+    background-color: lightsalmon;
 }
 
 .cart__quantity{
