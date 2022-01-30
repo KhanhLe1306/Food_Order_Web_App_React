@@ -1,0 +1,19 @@
+.order__form{
+    height: 200px;
+    color: black;
+    padding: 1.5rem;
+}
+
+.order__nav{
+    font-size: 1.5rem;
+    font-weight: bold;
+    display: flex;
+    justify-content: space-between;
+    color: salmon;
+    margin-bottom: 1rem;
+}
+
+.order__bottom{
+    display: flex;
+    justify-content: flex-end;
+}

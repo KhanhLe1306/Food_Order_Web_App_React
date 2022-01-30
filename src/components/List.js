@@ -12,7 +12,7 @@ const List = (props) => {
 		if (pickAmount > 0) {   //If user pick any amount other than 0
 			//console.log(id, title, pickAmount, price);
 			onAddItem(id, title, price, pickAmount);
-        }
+		}
 	};
 
 	const changeHandler = (event) => {

@@ -1,7 +1,7 @@
-.cart__container{
+/* .cart__container{
     min-height: 100px;
     width: 60%;
-    background-color: #eee;
+    background-color: lightblue;
     position: fixed;
     z-index: 100;
     top: 30%;
@@ -9,7 +9,7 @@
     padding: 2rem;
     border-radius: 1rem;
     color: black;
-}
+} */
 
 .cart{
     display: flex;

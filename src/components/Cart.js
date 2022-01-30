@@ -33,6 +33,10 @@ const Cart = (props) => {
         props.incrementClickHandler(+id_of_clickedItem)
     }
 
+    const cartOrderClicked = () => {
+        props.onOrderClick(total)
+    }
+
 
     return (
         <Modal onClose={props.onClose} className={classes.cart__container}>
@@ -57,7 +61,7 @@ const Cart = (props) => {
             </div>
             <div className={classes.cart__bottom}>
                 <span className={classes.button} onClick={props.onToggleCart}>Close</span>
-                <span className={classes.button} onClick={props.onOrderClick}>Order</span>
+                <span className={classes.button} onClick={cartOrderClicked}>Order</span>
             </div>
         </Modal>
     );

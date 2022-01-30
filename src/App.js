@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 
+import axios from "axios";
+
 import Nav from "./components/Nav";
 
 import classes from "./App.module.css";
@@ -7,85 +9,15 @@ import CenterMessage from "./components/CenterMessage";
 import image from "./images/image.jpg";
 import Lists from "./components/Lists";
 import Cart from "./components/Cart";
+import OrderInfoForm from "./components/OrderInfoFrom";
 
-// const lists = [
-//   {
-//     id: 1,
-//     title: "Sushi",
-//     subtitle: "Finest Fish and Veggies",
-//     price: 12.99,
-//     amount: 2,
-//   },
-//   {
-//     id: 2,
-//     title: "Salmon",
-//     subtitle: "Butter rosemarry and seaweed Salmon",
-//     price: 19.99,
-//     amount: 1,
-//   },
-//   {
-//     id: 3,
-//     title: "Steak",
-//     subtitle: "Hand picked and cooked prime rib",
-//     price: 25.99,
-//     amount: 1,
-//   },
-//   {
-//     id: 4,
-//     title: "Pasta",
-//     subtitle: "Turkey, tomatoes, and green pasta",
-//     price: 22.99,
-//     amount: 2,
-//   },
-//   {
-//     id: 5,
-//     title: "Pho",
-//     subtitle: "Beef, rice noddle, and veggies",
-//     price: 11.99,
-//     amount: 2,
-//   },
-//   {
-//     id: 6,
-//     title: "Taco",
-//     subtitle: "Asada, Carnitas, Fish combo tacos",
-//     price: 16.99,
-//     amount: 1,
-//   },
-//   {
-//     id: 7,
-//     title: "Avocado Toast",
-//     subtitle: "Organic Avocado, whole wheet breads, 3 organic eggs",
-//     price: 13.99,
-//     amount: 1,
-//   },
-//   {
-//     id: 8,
-//     title: "Organic Protein Shake",
-//     subtitle: "Grass-fed protein powder, greek yogut, milk, berries, avocado, oakmeal",
-//     price: 7.99,
-//     amount: 5,
-//   },
-// ];
-
-// const cart = [
-//   // {
-//   // 	id: 1,
-//   // 	title: "Sushi",
-//   // 	price: 12.99,
-//   // 	amount: 2,
-//   // },
-//   // {
-//   // 	id: 3,
-//   // 	title: "Steak",
-//   // 	price: 22.99,
-//   // 	amount: 1,
-//   // },
-// ];
 
 function App() {
   const [cartItems, setCartItems] = useState([]);
   const [showCart, setShowCart] = useState(false);
   const [menu, setMenu] = useState([])
+  const [orderInfo, setOrderInfo] = useState(false)
+  const [total, setTotal] = useState(0)
 
   useEffect(() => {
     fetch("http://localhost:4000/foodMenu")
@@ -151,12 +83,38 @@ function App() {
     setShowCart(!showCart)
   }
 
-  const ordering = () => {
+  const ordering = (totalAmount) => {
     console.log('Ordering...')
+    setTotal(totalAmount)
+    setShowCart(false)
+    setOrderInfo(true)
   }
 
   const backDropClickHandler = () => {
     setShowCart(false)
+  }
+
+  const closeOrderInfoForm = () => {
+    setOrderInfo(false)
+  }
+
+  const orderInputFromClicked = (name, phoneNumber, address) => {
+    const order = {
+      name,
+      phoneNumber,
+      address,
+      order: cartItems.map(element => ({ name: element.title, quantity: element.amount })),
+      total: total
+    }
+    //console.log(order)
+
+    axios
+      .post('http://localhost:4000/foodMenu/order', order)
+      .then(() => console.log("post order succeeded!"))
+      .catch(err => console.log(err))
+
+    setOrderInfo(false)
+    console.log("finally order!")
   }
 
   return (
@@ -176,6 +134,10 @@ function App() {
           incrementClickHandler={incrementClickHandler}
           decrementClickHandler={decrementClickHandler}
         />
+      )}
+
+      {orderInfo && (
+        <OrderInfoForm onClose={closeOrderInfoForm} onOrder={orderInputFromClicked} />
       )}
     </div>
   );

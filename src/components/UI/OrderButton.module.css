@@ -1,0 +1,15 @@
+.button{
+    padding: .25rem 1.5rem;
+    border: .5px solid salmon;
+    border-radius: .5rem;
+    color: salmon;
+    font-size: 1.5rem;
+    font-weight: bold;
+    cursor: pointer;
+    margin-left: 0.5rem;
+}
+
+.button:hover{
+    background-color: salmon;
+    color: white;
+}
